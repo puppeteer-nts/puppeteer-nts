@@ -1,0 +1,22 @@
+{
+  "name": "puppeteer-nts",
+  "version": "0.3.0",
+  "description": "Utilities for test automation.",
+  "main": "utilities.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/puppeteer-nts/puppeteer-nts.git"
+  },
+  "keywords": [
+    "puppeteer-nts"
+  ],
+  "author": "nts",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/puppeteer-nts/puppeteer-nts/issues"
+  },
+  "homepage": "https://github.com/puppeteer-nts/puppeteer-nts#readme"
+}
