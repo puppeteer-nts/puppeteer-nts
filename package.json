@@ -1,22 +1,50 @@
 {
-  "name": "puppeteer-nts",
-  "version": "0.3.0",
-  "description": "Utilities for test automation.",
-  "main": "utilities.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "_from": "puppeteer-nts",
+  "_id": "puppeteer-nts@0.3.0",
+  "_inBundle": false,
+  "_integrity": "sha512-qZsBg+Nfz3JTwmEG0LBf6YboybzxzaONMsnVgkCPVLLeUohtaSNy3Y4CQ04yQaCABj44u1h1O5ypxH273dERVw==",
+  "_location": "/puppeteer-nts",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "puppeteer-nts",
+    "name": "puppeteer-nts",
+    "escapedName": "puppeteer-nts",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
   },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/puppeteer-nts/-/puppeteer-nts-0.3.0.tgz",
+  "_shasum": "93b77ecf0f2368e91f913a2ec9fcaf4db2ad77f8",
+  "_spec": "puppeteer-nts",
+  "_where": "D:\\puppeteer-project",
+  "author": {
+    "name": "nts"
+  },
+  "bugs": {
+    "url": "https://github.com/puppeteer-nts/puppeteer-nts/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "Utilities for test automation.",
+  "homepage": "https://github.com/puppeteer-nts/puppeteer-nts#readme",
+  "keywords": [
+    "puppeteer-nts"
+  ],
+  "license": "ISC",
+  "main": "utilities.js",
+  "name": "puppeteer-nts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/puppeteer-nts/puppeteer-nts.git"
   },
-  "keywords": [
-    "puppeteer-nts"
-  ],
-  "author": "nts",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/puppeteer-nts/puppeteer-nts/issues"
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "homepage": "https://github.com/puppeteer-nts/puppeteer-nts#readme"
+  "version": "0.3.1"
 }

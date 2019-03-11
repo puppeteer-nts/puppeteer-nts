@@ -17,7 +17,8 @@ async function waitFor(locator){
         }
 
     } catch (error) {
-        console.log("다음 요소를 찾을 수 없음: " + locator + "\n" + error);
+        console.log("다음 요소를 찾을 수 없음: " + locator);
+        throw error;
     }
     
     return count;
@@ -43,7 +44,8 @@ async function waitForHidden(locator){
         }
 
     } catch (error) {
-      console.log("다음 요소가 사라지지 않음: " + locator + "\n" + error);
+      console.log("다음 요소가 사라지지 않음: " + locator);
+      throw error;
     }
     return count;
 }
@@ -60,6 +62,7 @@ async function waitForDomLoaded (){
     
     } catch(error) {
         console.log('페이지의 domcontent가 정상적으로 로딩되지 않음');
+        throw error;
     }
 }
 
@@ -86,7 +89,8 @@ async function isElementVisible(locator){
         
     } catch(error){
         isVisible = false;
-        console.log('다음 요소를 찾을 수 없음 : ' + locator + '\n' + error);
+        console.log('다음 요소를 찾을 수 없음 : ' + locator);
+        throw error;
     }
 
   return isVisible;
@@ -103,7 +107,8 @@ async function goTo(url) {
       await page.goto(url, {waitUntil: 'load', timeout:10000});
 
   } catch(error){
-      console.log('다음 페이지에 접속할 수 없음: ' + url + '\n' + error);
+      console.log('다음 페이지에 접속할 수 없음: ' + url);
+      throw error;
   }
 }
 
@@ -124,7 +129,8 @@ async function click(locator){
       }
 
   } catch(error) {
-    console.log('다음 요소를 클릭할 수 없음: ' + locator + '\n' + error);
+    console.log('다음 요소를 클릭할 수 없음: ' + locator);
+    throw error;
   }
 }
 
@@ -148,7 +154,8 @@ async function type(locator, text){
       }
 
   } catch(error) {
-      console.log('다음 영역에 텍스트 입력불가: ' + locator + '\n' + error);
+      console.log('다음 영역에 텍스트 입력불가: ' + locator);
+      throw error;
   }
 }
 
@@ -183,7 +190,8 @@ async function clearAndType(locator, text){
       }
 
   } catch(error){
-      console.log('다음 영역에 텍스트 삭제 후 입력 실패: ' + locator + '\n' + error);
+      console.log('다음 영역에 텍스트 삭제 후 입력 실패: ' + locator);
+      throw error;
   }
 }
 
@@ -203,7 +211,8 @@ async function getText(selector) {
       console.log(selector +'에 포함된 Text: ' + text);
 
   } catch(error){
-      console.log('텍스트 확인 실패: ' + selector + '에서 textContent를 찾을 수 없음' + '\n' + error);
+      console.log('텍스트 확인 실패: ' + selector + '에서 textContent를 찾을 수 없음');
+      throw error;
   }
 
   return text;
@@ -223,7 +232,8 @@ async function getValue(selector) {
       value = await valueHandle.jsonValue();
 
   } catch(error){
-      console.log('value 확인 실패: ' + selector + '에서 value를 찾을 수 없음' + '\n' + error);
+      console.log('value 확인 실패: ' + selector + '에서 value를 찾을 수 없음');
+      throw error;
   }
   
   return value;
@@ -242,7 +252,8 @@ async function getInnnerText(selector) {
         let innerTextHandle = await element.getProperty('innerText');
         innerText = await innerTextHandle.jsonValue();
     } catch(error){
-        console.log('innerText 확인 실패: ' + selector + '에서 innerText를 찾을 수 없음' + '\n' + error);
+        console.log('innerText 확인 실패: ' + selector + '에서 innerText를 찾을 수 없음');
+        throw error;
     }
     
   return innnerText;
@@ -266,7 +277,8 @@ async function getActivePages() {
         }
 
     } catch(error){
-      console.log('Page 찾기 실패: Active 상태인 Page를 찾을 수 없음' + '\n' + error);
+      console.log('Page 찾기 실패: Active 상태인 Page를 찾을 수 없음');
+      throw error;
   }
 
   return activePages;
@@ -287,7 +299,8 @@ async function getNewPage(){
         newPage = pages[pages.length - 1];
     
     } catch(error){
-        console.log('새 Page 열기 실패: 새로 열린 Page를 찾을 수 없음' + '\n' + error);
+        console.log('새 Page 열기 실패: 새로 열린 Page를 찾을 수 없음');
+        throw error;
     }
 
   return newPage;
@@ -318,7 +331,8 @@ async function switchPage(title){
         }
         
     } catch(error){
-        console.log('Page 전환 실패: Title이 \'' + title  + '\'인 Page로 전환 할 수 없음' + '\n' + error);
+        console.log('Page 전환 실패: Title이 \'' + title  + '\'인 Page로 전환 할 수 없음');
+        throw error;
     }
 
     return selectedPage;
@@ -350,7 +364,8 @@ async function uploadFile(selector, filepath){
         await input.uploadFile(filepath);
 
     } catch(error){
-        console.log('업로드 실패: '+ filepath + ' 파일의 업로드 실패함'+ '\n' + error);
+        console.log('업로드 실패: '+ filepath + ' 파일의 업로드 실패함');
+        throw error;
     }
 }
 
