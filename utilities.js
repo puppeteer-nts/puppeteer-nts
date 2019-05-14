@@ -1,5 +1,6 @@
+﻿//utilities.js v1.0.0
 
-//waitFor(locator): locator가 로딩될 때까지 대기한다. (타임아웃:10초)
+//waitFor(locator): locator의 타입이 cssSelector인지 xpath인지 확인 후 해당 element 로딩될 때까지 대기한다. (타임아웃:10초)
 //locator string을 구별 (0:selector / 1~:xPath)
 //inputType: text
 //ouputType: number
@@ -11,9 +12,9 @@ async function waitFor(locator){
         count = (locator.match(/\//g) || []).length;    //타겟 스트링에서 "/" 문자 수 카운팅하여 selector OR xpath 구별
        
         if(count<1){
-            element = await page.waitForSelector(locator, {visible:true, timeout:10000});
+            await page.waitForSelector(locator, {visible:true, timeout:10000});
         } else{
-            element = await page.waitForXPath(locator, {visible:true, timeout:10000});
+            await page.waitForXPath(locator, {visible:true, timeout:10000});
         }
 
     } catch (error) {
@@ -38,9 +39,11 @@ async function waitForHidden(locator){
         count = (locator.match(/\//g) || []).length;     //타겟 스트링에서 "/" 문자 수 카운팅하여 selector OR xpath 구별
       
         if(count<1){
-            element = await page.waitForSelector(locator, {hidden:true, timeout:10000});
+            await page.waitForSelector(locator, {hidden:true, timeout:10000});
+            await page.waitForSelector(locator, {hidden:true, timeout:10000});
         } else{
-            element = await page.waitForXPath(locator, {hidden:true, timeout:10000});
+            await page.waitForXPath(locator, {hidden:true, timeout:10000});
+            await page.waitForXPath(locator, {hidden:true, timeout:10000});
         }
 
     } catch (error) {
@@ -56,7 +59,7 @@ async function waitForHidden(locator){
 //inputType: n/a
 //ouputType: n/a
 module.exports.waitForDomLoaded = waitForDomLoaded ;
-async function waitForDomLoaded (){  
+async function waitForDomLoaded(){  
     try{
         await page.waitForNavigation({waitUntil: 'domcontentloaded', timeout:10000});
     
@@ -80,11 +83,10 @@ async function isElementVisible(locator){
 
     try{
         count = (locator.match(/\//g) || []).length;     //타겟 스트링에서 "/" 문자 수 카운팅하여 selector OR xpath 구별
-
         if(count<1){
-        element = await page.waitForSelector(locator, {visible:true, timeout:10000}).then(() => isVisible = true);
+            await page.waitForSelector(locator, {visible:true, timeout:10000}).then(() => isVisible = true);
         } else{
-        element = await page.waitForXPath(locator, {visible:true, timeout:10000}).then(() => isVisible = true);
+            await page.waitForXPath(locator, {visible:true, timeout:10000}).then(() => isVisible = true);
         }
         
     } catch(error){
@@ -98,20 +100,25 @@ async function isElementVisible(locator){
 
 
 
-//goTo(url): page 이동 후, load가 완료될 때까지 대기 (타임아웃: 10초)
-//inputType: text
-//ouputType: n/a
-module.exports.goTo = goTo;
-async function goTo(url) {
-  try{
-      await page.goto(url, {waitUntil: 'load', timeout:10000});
-
-  } catch(error){
-      console.log('다음 페이지에 접속할 수 없음: ' + url);
-      throw error;
-  }
+//goto(url): page 이동 후, 설정한 옵션대로 동작이 완료되기까지 대기 (타임아웃: 10초)
+//inputType: text, waitOption(=load, domcontentloaded, networkidle0, networkidle2)
+//ouputType: promise
+module.exports.goto = goto;
+async function goto(url, waitOption) {
+    let promise = null;
+    try{
+        if(waitOption!=null){
+            promise = await page.goto(url, {waitUntil: waitOption, timeout:10000});
+        } else {
+            promise = await page.goto(url, {waitUntil: 'load', timeout:10000});
+        }
+    
+    } catch(error){
+        console.log('다음 페이지에 접속할 수 없음: ' + url);
+        throw error;
+    }
+    return promise;
 }
-
 
 
 //click(locator): locator에 해당하는 element를 클릭한다. (타임아웃: 10초)
@@ -123,8 +130,9 @@ async function click(locator){
   try{
       if(count<1){
           await page.click(locator);
+
       } else{
-          let [element] = await page.$x(xpath);
+          let [element] = await page.$x(locator);
           await element.click();
       }
 
@@ -146,10 +154,12 @@ async function type(locator, text){
       if(count<1){
           console.log('css Selector');
           let element = await page.$(locator);
+          await element.focus();
           await page.type(locator, text); 
       } else{
         console.log('xpath');
           let [element] = await page.$x(locator);
+          await element.focus();
           await element.type(text);
       }
 
